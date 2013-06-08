@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Account Balance</string>
+    <string name="action_settings">Settings</string>
+    <string name="current_label">Current</string>
+    <string name="button_deposit">Deposit</string>
+    <string name="button_purchase">Purchase</string>
+    <string name="title_activity_purchase">Purchase</string>
+    <string name="searching">Searching for nearby locations...</string>
+    <string name="title_activity_record_purchase">Record Purchase</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="place">Place</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date </string>
+    <string name="record_purchase">Record Purchase</string>
+    <string name="location">Location</string>
+    <string name="title_activity_detail">Transaction Detail</string>
+    <string name="when">When</string>
+    <string name="where">Where</string>
+    <string name="viewmap">View On Map</string>
+
+</resources>
