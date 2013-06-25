@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".DepositActivity" >
+
+        <TextView
+            android:id="@+id/textViewDepositAmountLbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editTextDepositAmount"
+            android:text="@string/amount" />
+
+        <Button
+            android:id="@+id/buttonRecordDeposit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextDepositMemo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/record_deposit" />
+
+        <EditText
+            android:id="@+id/editTextDepositAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewDepositAmountLbl"
+            android:ems="10"
+            android:inputType="numberDecimal" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/editTextDepositMemo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textViewDepositMemoLbl"
+            android:layout_below="@+id/textViewDepositMemoLbl"
+            android:ems="10" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/textViewDepositMemoLbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editTextDepositAmount"
+            android:layout_below="@+id/editTextDepositAmount"
+            android:paddingTop="10dp"
+            android:text="@string/memo" />
+    </RelativeLayout>
+    <com.google.ads.AdView
+        xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+        android:id="@+id/ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_id"
+        ads:testDevices="D5C71E654ACB04863E664691D781E661"
+        ads:loadAdOnCreate="true" >
+    </com.google.ads.AdView>
+
+</LinearLayout>

@@ -3,25 +3,28 @@ package com.obfuskate.accountbalance;
 import java.text.NumberFormat;
 import java.util.Date;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import android.os.Bundle;
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class DetailActivity extends Activity {
+public class DetailActivity extends FragmentActivity {
   private TextView whenText;
   private TextView whereText;
   private TextView amountText;
@@ -61,7 +64,7 @@ public class DetailActivity extends Activity {
     //perform map setup
     LatLng transactionLatLng = new LatLng(Double.valueOf(cur.getString(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_LAT))),
         Double.valueOf(cur.getString(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_LONG))));
-    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
+    map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
     map.addMarker(new MarkerOptions().position(transactionLatLng).title(whereText.getText().toString()));
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(transactionLatLng, 12));
     // Show the Up button in the action bar.
@@ -71,9 +74,11 @@ public class DetailActivity extends Activity {
   /**
    * Set up the {@link android.app.ActionBar}.
    */
+  @SuppressLint("NewApi")
   private void setupActionBar() {
-
-    getActionBar().setDisplayHomeAsUpEnabled(true);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) { 
+      getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
   }
 

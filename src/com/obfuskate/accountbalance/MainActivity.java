@@ -4,7 +4,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -43,8 +42,14 @@ public class MainActivity extends Activity {
 
       LayoutInflater inflater = ((Activity)lv.getContext()).getLayoutInflater();
       LinearLayout layout = new LinearLayout(lv.getContext());
+      LinearLayout noTransactionsLayout = new LinearLayout(lv.getContext());
       inflater.inflate(R.layout.recent_transaction_header, layout);
       lv.addHeaderView(layout);
+      if (transactions.size() == 0) {
+        inflater.inflate(R.layout.recent_transactions_none, noTransactionsLayout);
+        lv.addHeaderView(noTransactionsLayout);
+      }
+      
       lv.setAdapter(adapter);
       lv.setSelection(adapter.getCount() - 1);
       lv.setOnItemClickListener(new OnItemClickListener() {
@@ -95,6 +100,7 @@ public class MainActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    
     ListView lv = (ListView) findViewById(R.id.listViewRecent);
 
     //do database query, create adapter, and set listview adapter in background
@@ -102,20 +108,15 @@ public class MainActivity extends Activity {
     progress.setVisibility(View.VISIBLE);
     (new PopulateRecentTransactionsTask()).execute(lv);
     
+    
     Button depositBtn = (Button) findViewById(R.id.buttonDeposit);
     Button purchaseBtn = (Button) findViewById(R.id.buttonPurchase);
     
     depositBtn.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        BalanceDbHelper dbHelper = new BalanceDbHelper(v.getContext());
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(BalanceContract.BalanceEntry.COLUMN_NAME_LOCATION, "Test Location");
-        values.put(BalanceContract.BalanceEntry.COLUMN_NAME_AMOUNT, 1000);
-        values.put(BalanceContract.BalanceEntry.COLUMN_NAME_DATE, System.currentTimeMillis() / 1000);
-        db.insertOrThrow(BalanceContract.BalanceEntry.TABLE_NAME, null, values);
-        updateBalance();
+        Intent depositIntent = new Intent(v.getContext(), DepositActivity.class);
+        startActivity(depositIntent);
       }
     });
     

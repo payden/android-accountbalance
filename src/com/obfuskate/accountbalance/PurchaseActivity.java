@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
@@ -28,6 +29,7 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -52,6 +54,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+
 
 
 public class PurchaseActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
@@ -220,6 +223,7 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
             av.setVisibility(View.INVISIBLE);
             EditText otherText = (EditText) findViewById(R.id.editTextOther);
             otherText.setVisibility(View.VISIBLE);
+            otherText.requestFocus();
           }
         }
 
@@ -370,9 +374,11 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
   /**
    * Set up the {@link android.app.ActionBar}.
    */
+  @SuppressLint("NewApi")
   private void setupActionBar() {
-
-    getActionBar().setDisplayHomeAsUpEnabled(true);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+      getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
   }
 
@@ -427,23 +433,6 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
         //try again
         break;
       }
-    }
-  }
-  
-  @SuppressWarnings("unused")
-  private boolean servicesConnected() {
-    int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-    if (ConnectionResult.SUCCESS == resultCode) {
-      Log.d("Location Updates", "Connection to location services okay.");
-      return true;
-    } else {
-      Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(resultCode, this, 0);
-      if (errorDialog != null) {
-        ErrorDialogFragment errorFragment = new ErrorDialogFragment();
-        errorFragment.setDialog(errorDialog);
-        errorFragment.show(getSupportFragmentManager(), "WTF apptag");
-      }
-      return false;
     }
   }
 

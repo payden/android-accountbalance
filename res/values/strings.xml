@@ -3,7 +3,7 @@
 
     <string name="app_name">Account Balance</string>
     <string name="action_settings">Settings</string>
-    <string name="current_label">Current</string>
+    <string name="current_label">Current:</string>
     <string name="button_deposit">Deposit</string>
     <string name="button_purchase">Purchase</string>
     <string name="title_activity_purchase">Purchase</string>
@@ -14,10 +14,16 @@
     <string name="amount">Amount</string>
     <string name="date">Date </string>
     <string name="record_purchase">Record Purchase</string>
+    <string name="record_deposit">Record Deposit</string>
     <string name="location">Location</string>
     <string name="title_activity_detail">Transaction Detail</string>
     <string name="when">When</string>
     <string name="where">Where</string>
     <string name="viewmap">View On Map</string>
+    <string name="title_activity_deposit">Deposit</string>
+    <string name="memo">Memo</string>
+    <string name="waiting">Waiting on location...</string>
+    <string name="admob_id">a151c8db6949c74</string>
+    <string name="none">No transactions yet</string>
 
 </resources>

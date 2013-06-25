@@ -1,69 +1,90 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textViewCurrent"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewLabelCurrent"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginTop="5dp" >
 
-    <TextView
-        android:id="@+id/textViewLabelCurrent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="@string/current_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/textViewLabelCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="@string/current_label"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/buttonDeposit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonPurchase"
-        android:layout_alignBottom="@+id/buttonPurchase"
-        android:layout_alignParentLeft="true"
-        android:text="@string/button_deposit" />
+        <TextView
+            android:id="@+id/textViewCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/buttonPurchase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textViewCurrent"
-        android:layout_marginTop="20dp"
-        android:text="@string/button_purchase" />
+    </LinearLayout>
 
-    <ListView
-        android:id="@+id/listViewRecent"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonDeposit"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/border_ui" >
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity" >
 
-    </ListView>
+        <Button
+            android:id="@+id/buttonDeposit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buttonPurchase"
+            android:layout_alignBottom="@+id/buttonPurchase"
+            android:layout_alignParentLeft="true"
+            android:text="@string/button_deposit" />
 
-    <ProgressBar
-        android:id="@+id/progressBarRecent"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/buttonPurchase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/button_purchase" />
+
+        <ListView
+            android:id="@+id/listViewRecent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/buttonDeposit"
+            android:layout_alignRight="@+id/buttonPurchase"
+            android:layout_below="@+id/buttonDeposit"
+            android:layout_marginBottom="75dp"
+            android:background="@drawable/border_ui" />
+
+        <ProgressBar
+            android:id="@+id/progressBarRecent"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <com.google.ads.AdView
+        xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+        android:id="@+id/ad"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone" />
+        ads:adSize="BANNER"
+        ads:testDevices="D5C71E654ACB04863E664691D781E661"
+        ads:adUnitId="@string/admob_id"
+        ads:loadAdOnCreate="true" >
+    </com.google.ads.AdView>
 
-</RelativeLayout>
+</LinearLayout>
