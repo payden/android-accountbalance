@@ -4,7 +4,10 @@ package com.obfuskate.accountbalance;
 import java.text.NumberFormat;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class RecentTransactionsAdapter extends ArrayAdapter<RecentTransaction> {
+public class RecentTransactionsAdapter extends CursorAdapter {
 
   Context context;
-  int layoutResourceId;
-  List<RecentTransaction> transactions;
+  Cursor cursor;
+  int flags;
   
   public static class ViewHolder {
     public TextView dateView;
@@ -24,37 +27,27 @@ public class RecentTransactionsAdapter extends ArrayAdapter<RecentTransaction> {
     public TextView amountView;
   }
   
-  public RecentTransactionsAdapter(Context context, int textViewResourceId, List<RecentTransaction> objects) {
-    super(context, textViewResourceId, objects);
+  public RecentTransactionsAdapter(Context context, Cursor c, int flags) {
+    super(context, c, flags);
     this.context = context;
-    this.layoutResourceId = textViewResourceId;
-    this.transactions = objects;
+    this.cursor = c;
+    this.flags = flags;
   }
   
   @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
-    View row = convertView;
-    ViewHolder holder = null;
-    if (row == null) {
-      LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      row = li.inflate(R.layout.recent_transaction_row, null);
-      holder = new ViewHolder();
-      holder.dateView = (TextView) row.findViewById(R.id.textViewDate);
-      holder.placeView = (TextView) row.findViewById(R.id.textViewPlace);
-      holder.amountView = (TextView) row.findViewById(R.id.textViewAmountLbl);
-      row.setTag(holder);
-    } else {
-      holder = (ViewHolder) row.getTag();
-    }
-    final RecentTransaction transaction = transactions.get(position);
-    if (transaction != null) {
-      NumberFormat fmt = NumberFormat.getCurrencyInstance();
-      holder.dateView.setText(android.text.format.DateFormat.format("M/d", transaction.transactionDate));
-      holder.placeView.setText(transaction.transactionPlace);
-      holder.amountView.setText(fmt.format((double) transaction.transactionAmount / 100));
-      
-    }
-    return row;
+  public void bindView(View v, Context c, Cursor cur) {
+    TextView dateView = (TextView) v.findViewById(R.id.textViewDate);
+    TextView placeView = (TextView) v.findViewById(R.id.textViewPlace);
+    TextView amountView = (TextView) v.findViewById(R.id.textViewAmountLbl);
+    dateView.setText(android.text.format.DateFormat.format("M/d", Long.valueOf(cur.getString(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_DATE)))));
+    placeView.setText(cur.getString(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_LOCATION)));
+    NumberFormat fmt = NumberFormat.getCurrencyInstance();
+    Long amount = cur.getLong(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_AMOUNT));
+    amountView.setText(fmt.format((double)amount / 100));
   }
 
+  @Override
+  public View newView(Context context, Cursor cursor, ViewGroup parent) {
+    return ((Activity)context).getLayoutInflater().inflate(R.layout.recent_transaction_row, parent, false);
+  }
 }

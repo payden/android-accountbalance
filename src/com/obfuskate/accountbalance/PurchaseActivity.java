@@ -63,6 +63,7 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
   LocationRequest mLocationRequest;
   List<Map<String, String>> arrayList;
   EstablishmentsAdapter mAdapter;
+  private static boolean bFirst;
   private static AsyncTask<String, Void, JSONObject> loadMoreTask;
   private static AsyncTask<String, Void, JSONObject> findEstablishmentsTask;
   private final static String GENERIC_BUSINESS_ICON = "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png";
@@ -166,6 +167,20 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
     protected void onPostExecute(JSONObject jsonObject) {
       String nextPageToken = null;
       JSONArray jsonArray = new JSONArray();
+      
+      if (jsonObject == null) {
+        Toast.makeText(PurchaseActivity.this, "Unable to get location results", Toast.LENGTH_SHORT).show();
+        Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+        EditText otherText = (EditText) findViewById(R.id.editTextOther);
+        otherText.setVisibility(View.VISIBLE);
+        spinner.setVisibility(View.INVISIBLE);
+        ProgressBar loading = (ProgressBar) findViewById(R.id.progressBarSearching);
+        loading.setVisibility(android.view.View.GONE);
+        Button recordButton = (Button) findViewById(R.id.buttonRecordPurchase);
+        recordButton.setVisibility(View.VISIBLE);
+        return;
+      }
+      
       try {
         if (jsonObject.has("next_page_token")) {
           nextPageToken = jsonObject.getString("next_page_token");
@@ -186,7 +201,6 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
         EditText otherText = (EditText) findViewById(R.id.editTextOther);
         otherText.setVisibility(View.VISIBLE);
         spinner.setVisibility(View.INVISIBLE);
-        
         return;
       }
       int i;
@@ -293,6 +307,12 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
     }
     
   }
+  
+  @Override
+  protected void onResume() {
+    super.onResume();
+    bFirst = true;
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -367,7 +387,7 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
   
   @Override
   protected void onStop() {
-    mLocationClient.disconnect();   
+    mLocationClient.disconnect();
     super.onStop();
   }
 
@@ -468,20 +488,18 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
   @Override
   public void onLocationChanged(Location location) {
     mCurrentLocation = location;
-    //We just want to get one good location update
-    if (mLocationClient.isConnected()) {
-      mLocationClient.removeLocationUpdates(this);
+    if (bFirst) {
+      List<Map<String, String>> arrayList = new ArrayList<Map<String, String>>();
+      Map<String, String> map = new HashMap<String, String>();
+      map.put("name", "Searching nearby locations");
+      arrayList.add(map);
+      SimpleAdapter waitingAdapter = new SimpleAdapter(PurchaseActivity.this, arrayList, android.R.layout.simple_list_item_1, new String[] {"name"}, new int[] {android.R.id.text1});
+      Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+      spinner.setAdapter(waitingAdapter);
+      findEstablishmentsTask = new FindEstablishmentsTask();
+      findEstablishmentsTask.execute(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
+      bFirst = false;
     }
-    Log.e("Testing", "Lat: " + String.valueOf(location.getLatitude()) + ", Long: " + String.valueOf(location.getLongitude()));
-    List<Map<String, String>> arrayList = new ArrayList<Map<String, String>>();
-    Map<String, String> map = new HashMap<String, String>();
-    map.put("name", "Searching nearby locations");
-    arrayList.add(map);
-    SimpleAdapter waitingAdapter = new SimpleAdapter(PurchaseActivity.this, arrayList, android.R.layout.simple_list_item_1, new String[] {"name"}, new int[] {android.R.id.text1});
-    Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-    spinner.setAdapter(waitingAdapter);
-    findEstablishmentsTask = new FindEstablishmentsTask();
-    findEstablishmentsTask.execute(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
   }
 
 }

@@ -19,13 +19,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
   private TransactionsTaskData mTransactionsTaskData;
 
   private class TransactionsTaskData {
-    public ArrayList<RecentTransaction> arrayList;
+    public Cursor cursor;
     public ListView listView;
   }
   
@@ -37,18 +39,20 @@ public class MainActivity extends Activity {
       ListView lv = d.listView;
       ProgressBar progress = (ProgressBar) findViewById(R.id.progressBarRecent);
       progress.setVisibility(View.GONE);
-      ArrayList<RecentTransaction> transactions = d.arrayList;
-      RecentTransactionsAdapter adapter = new RecentTransactionsAdapter(lv.getContext(), R.id.listViewRecent, transactions);
+      Cursor cur = d.cursor;
+      //RecentTransactionsAdapter adapter = new RecentTransactionsAdapter(lv.getContext(), R.id.listViewRecent, transactions);
+
+      RecentTransactionsAdapter adapter = new RecentTransactionsAdapter(lv.getContext(), cur, 0);
 
       LayoutInflater inflater = ((Activity)lv.getContext()).getLayoutInflater();
       LinearLayout layout = new LinearLayout(lv.getContext());
       LinearLayout noTransactionsLayout = new LinearLayout(lv.getContext());
       inflater.inflate(R.layout.recent_transaction_header, layout);
       lv.addHeaderView(layout);
-      if (transactions.size() == 0) {
+      /* fix this if (transactions.size() == 0) {
         inflater.inflate(R.layout.recent_transactions_none, noTransactionsLayout);
         lv.addHeaderView(noTransactionsLayout);
-      }
+      } */
       
       lv.setAdapter(adapter);
       lv.setSelection(adapter.getCount() - 1);
@@ -59,9 +63,8 @@ public class MainActivity extends Activity {
           if (position == 0) {
             return;
           }
-          long id = mTransactionsTaskData.arrayList.get(position - 1).rowId;
           Intent detailIntent = new Intent(v.getContext(), DetailActivity.class);
-          detailIntent.putExtra("tId", id);
+          detailIntent.putExtra("tId", av.getItemIdAtPosition(position));
           startActivity(detailIntent);
         }
         
@@ -78,20 +81,10 @@ public class MainActivity extends Activity {
           BalanceContract.BalanceEntry.COLUMN_NAME_DATE,
           BalanceContract.BalanceEntry.COLUMN_NAME_LOCATION,
           BalanceContract.BalanceEntry._ID};
-      Cursor cur = db.query(BalanceContract.BalanceEntry.TABLE_NAME, projection, null, null, null, null, BalanceContract.BalanceEntry.COLUMN_NAME_DATE + " DESC", "50");
-      cur.moveToLast();
-      if (cur.getCount() > 0) {
-        do {
-          transactionsArray.add(new RecentTransaction(cur.getLong(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_DATE)), 
-              cur.getString(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_LOCATION)), 
-              cur.getLong(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_AMOUNT)),
-              cur.getLong(cur.getColumnIndex(BalanceContract.BalanceEntry._ID))));
-        } while (cur.moveToPrevious() != false);
-      }
-      db.close();
+      Cursor cur = db.query(BalanceContract.BalanceEntry.TABLE_NAME, projection, null, null, null, null, BalanceContract.BalanceEntry.COLUMN_NAME_DATE);
       TransactionsTaskData data = new TransactionsTaskData();
       data.listView = v;
-      data.arrayList = transactionsArray;
+      data.cursor = cur;
       return data;
     }
   }
