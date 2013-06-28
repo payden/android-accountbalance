@@ -94,18 +94,26 @@ public class ReportActivity extends Activity {
       }
       
       NumberFormat fmt = NumberFormat.getCurrencyInstance();
-      
+      LinearLayout totalLayout = new LinearLayout(this);
+      totalLayout.setOrientation(LinearLayout.VERTICAL);
+      TextView tvTotalLbl = new TextView(this);
       TextView tvTotal = new TextView(this);
+      tvTotalLbl.setTextColor(0xffffffff);
+      tvTotalLbl.setTextSize(24);
+      tvTotalLbl.setPadding(5, 5, 5, 5);
+      tvTotalLbl.setText("Total");
       tvTotal.setTextColor(0xffffffff);
-      tvTotal.setTextSize(24);
       tvTotal.setPadding(5, 5, 5, 5);
-      tvTotal.setText("Total: " + fmt.format((double) total / 100));
+      tvTotal.setText(fmt.format((double) total / 100));
+      totalLayout.addView(tvTotalLbl);
+      totalLayout.addView(tvTotal);
       CustomGraphView graph = new CustomGraphView(this, width, height, 300);
+      graph.setPadding(0, 5, 0, 5);
       graph.setValues(values);
       graph.setColors(colors);
       graph.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
       layout.setOrientation(LinearLayout.VERTICAL);
-      layout.addView(tvTotal);
+      layout.addView(totalLayout);
       layout.addView(graph);
       for(i = 0; i < data.size(); i++) {
         LinearLayout tmpLayoutParent = new LinearLayout(this);
@@ -135,6 +143,7 @@ public class ReportActivity extends Activity {
       
     } else {
       TextView tv = new TextView(this);
+      tv.setTextColor(0xffffffff);
       tv.setText("No data yet");
       layout.addView(tv);
     }

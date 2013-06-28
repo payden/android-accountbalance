@@ -1,12 +1,12 @@
 package com.obfuskate.accountbalance;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
@@ -18,10 +18,16 @@ public class CustomGraphView extends View {
   private int radius;
   private ArrayList<Integer> colors;
   private ArrayList<Integer> values;
+  private RectF rectF;
+  
+  public CustomGraphView(Context context) {
+    this(context, 100, 100, 10);
+  }
 
   public CustomGraphView(Context context, int parentWidth, int parentHeight, int r) {
     super(context);
     Log.e("", "X: " + parentWidth + "Y: " + parentHeight);
+    rectF = new RectF();
     p = new Paint();
     p.setColor(Color.BLUE);
     p.setAntiAlias(true);
@@ -106,7 +112,6 @@ public class CustomGraphView extends View {
 
     Log.e("angle", "" + angle);
 
-    RectF rectF = new RectF();
     rectF.set(getStartX(), getStartY(), getStartX() + getRadius(), getStartY()
         + getRadius());
 
