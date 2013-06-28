@@ -185,6 +185,7 @@ containing a value of this type.
     public static final class id {
         public static final int LinearLayout1=0x7f05000e;
         public static final int RelativeLayout1=0x7f05000c;
+        public static final int action_reports=0x7f050031;
         public static final int action_settings=0x7f050030;
         public static final int ad=0x7f05000b;
         public static final int buttonDeposit=0x7f05001b;
@@ -239,10 +240,11 @@ containing a value of this type.
         public static final int activity_detail=0x7f030002;
         public static final int activity_main=0x7f030003;
         public static final int activity_purchase=0x7f030004;
-        public static final int recent_transaction_header=0x7f030005;
-        public static final int recent_transaction_row=0x7f030006;
-        public static final int recent_transactions_none=0x7f030007;
-        public static final int simple_list_item_2_icon=0x7f030008;
+        public static final int activity_report=0x7f030005;
+        public static final int recent_transaction_header=0x7f030006;
+        public static final int recent_transaction_row=0x7f030007;
+        public static final int recent_transactions_none=0x7f030008;
+        public static final int simple_list_item_2_icon=0x7f030009;
     }
     public static final class menu {
         public static final int deposit=0x7f090000;
@@ -250,11 +252,13 @@ containing a value of this type.
         public static final int main=0x7f090002;
         public static final int purchase=0x7f090003;
         public static final int record_purchase=0x7f090004;
+        public static final int report=0x7f090005;
     }
     public static final class string {
+        public static final int action_reports=0x7f060017;
         public static final int action_settings=0x7f060016;
-        public static final int admob_id=0x7f06002b;
-        public static final int amount=0x7f06001f;
+        public static final int admob_id=0x7f06002c;
+        public static final int amount=0x7f060020;
         public static final int app_name=0x7f060015;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=70] 
          */
@@ -265,8 +269,8 @@ containing a value of this type.
         /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
          */
         public static final int auth_client_requested_by_msg=0x7f060011;
-        public static final int button_deposit=0x7f060018;
-        public static final int button_purchase=0x7f060019;
+        public static final int button_deposit=0x7f060019;
+        public static final int button_purchase=0x7f06001a;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -322,10 +326,10 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f06000e;
-        public static final int current_label=0x7f060017;
-        public static final int date=0x7f060020;
-        public static final int hello_world=0x7f06001d;
-        public static final int location=0x7f060023;
+        public static final int current_label=0x7f060018;
+        public static final int date=0x7f060021;
+        public static final int hello_world=0x7f06001e;
+        public static final int location=0x7f060024;
         /**  Location client code resources (prefix with location_client) 
 
         Begin strings for location.reporting
@@ -337,20 +341,21 @@ containing a value of this type.
         public static final int location_client_ulr_inactive_age_under_13=0x7f060012;
         public static final int location_client_ulr_inactive_age_unknown=0x7f060013;
         public static final int location_client_ulr_inactive_unknown_restriction=0x7f060014;
-        public static final int memo=0x7f060029;
-        public static final int none=0x7f06002c;
-        public static final int place=0x7f06001e;
-        public static final int record_deposit=0x7f060022;
-        public static final int record_purchase=0x7f060021;
-        public static final int searching=0x7f06001b;
-        public static final int title_activity_deposit=0x7f060028;
-        public static final int title_activity_detail=0x7f060024;
-        public static final int title_activity_purchase=0x7f06001a;
-        public static final int title_activity_record_purchase=0x7f06001c;
-        public static final int viewmap=0x7f060027;
-        public static final int waiting=0x7f06002a;
-        public static final int when=0x7f060025;
-        public static final int where=0x7f060026;
+        public static final int memo=0x7f06002a;
+        public static final int none=0x7f06002d;
+        public static final int place=0x7f06001f;
+        public static final int record_deposit=0x7f060023;
+        public static final int record_purchase=0x7f060022;
+        public static final int searching=0x7f06001c;
+        public static final int title_activity_deposit=0x7f060029;
+        public static final int title_activity_detail=0x7f060025;
+        public static final int title_activity_purchase=0x7f06001b;
+        public static final int title_activity_record_purchase=0x7f06001d;
+        public static final int title_activity_report=0x7f06002e;
+        public static final int viewmap=0x7f060028;
+        public static final int waiting=0x7f06002b;
+        public static final int when=0x7f060026;
+        public static final int where=0x7f060027;
     }
     public static final class style {
         /** 

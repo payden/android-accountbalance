@@ -39,7 +39,7 @@ public class RecentTransactionsAdapter extends CursorAdapter {
     TextView dateView = (TextView) v.findViewById(R.id.textViewDate);
     TextView placeView = (TextView) v.findViewById(R.id.textViewPlace);
     TextView amountView = (TextView) v.findViewById(R.id.textViewAmountLbl);
-    dateView.setText(android.text.format.DateFormat.format("M/d", Long.valueOf(cur.getString(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_DATE)))));
+    dateView.setText(android.text.format.DateFormat.format("M/d", Long.valueOf(cur.getString(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_DATE))) * 1000));
     placeView.setText(cur.getString(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_LOCATION)));
     NumberFormat fmt = NumberFormat.getCurrencyInstance();
     Long amount = cur.getLong(cur.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_AMOUNT));

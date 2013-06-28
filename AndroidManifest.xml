@@ -76,10 +76,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.obfuskate.accountbalance.MainActivity" />
         </activity>
-        
-        <activity android:name="com.google.ads.AdActivity"
+        <activity
+            android:name="com.google.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
-        <meta-data android:value="a151c8db6949c74" android:name="ADMOB_PUBLISHER_ID" />
+
+        <meta-data
+            android:name="ADMOB_PUBLISHER_ID"
+            android:value="a151c8db6949c74" />
+
+        <activity
+            android:name="com.obfuskate.accountbalance.ReportActivity"
+            android:label="@string/title_activity_report"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@
 
     <string name="app_name">Account Balance</string>
     <string name="action_settings">Settings</string>
+    <string name="action_reports">Reports</string>
     <string name="current_label">Current:</string>
     <string name="button_deposit">Deposit</string>
     <string name="button_purchase">Purchase</string>
@@ -25,5 +26,6 @@
     <string name="waiting">Waiting on location...</string>
     <string name="admob_id">a151c8db6949c74</string>
     <string name="none">No transactions yet</string>
+    <string name="title_activity_report">Reports</string>
 
 </resources>
