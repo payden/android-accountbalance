@@ -247,8 +247,7 @@ containing a value of this type.
         public static final int recent_transaction_header=0x7f030007;
         public static final int recent_transaction_row=0x7f030008;
         public static final int recent_transactions_none=0x7f030009;
-        public static final int simple_list_item_1_white=0x7f03000a;
-        public static final int simple_list_item_2_icon=0x7f03000b;
+        public static final int simple_list_item_2_icon=0x7f03000a;
     }
     public static final class menu {
         public static final int deposit=0x7f090000;
