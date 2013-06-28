@@ -27,5 +27,8 @@
     <string name="admob_id">a151c8db6949c74</string>
     <string name="none">No transactions yet</string>
     <string name="title_activity_report">Reports</string>
+    <string name="title_activity_spending_report">Spending</string>
+    <string name="reportFor">For</string>
+    <string name="go">Go</string>
 
 </resources>

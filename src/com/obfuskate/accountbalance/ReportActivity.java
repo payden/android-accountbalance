@@ -1,156 +1,78 @@
 package com.obfuskate.accountbalance;
 
-import java.text.NumberFormat;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 public class ReportActivity extends Activity {
-  private class ReportData {
-    Integer value;
-    Integer color;
-    String location;
-    public final Integer[] colorSet = {
-        Color.BLUE,
-        Color.GRAY,
-        Color.GREEN,
-        Color.MAGENTA,
-        Color.YELLOW,
-        Color.RED,
-        Color.DKGRAY,
-        Color.CYAN,
-        Color.LTGRAY,
-        0xff2a4480
-    };
-    
-    public ReportData(String l, Integer v) {
-      this.location = l;
-      this.value = v;
-      
-    }
-  }
+  
+  private Spinner spinnerReport;
+  private Spinner spinnerRange;
 
   @SuppressWarnings("deprecation")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Display disp = getWindowManager().getDefaultDisplay();
-    int width;
-    int height;
+    setContentView(R.layout.activity_report);
+    spinnerReport = (Spinner) findViewById(R.id.spinnerSelectReport);
+    spinnerRange = (Spinner) findViewById(R.id.spinnerSelectRange);
+    Button goBtn = (Button) findViewById(R.id.buttonGo);
+    //setup report drop down
+    List<Map<String, String>> reportList = new ArrayList<Map<String, String>>();
+    Map<String, String> tmpMap = new HashMap<String, String>();
+    tmpMap.put("name", "Spending Report");
+    reportList.add(tmpMap);
+    SimpleAdapter reportAdapter = new SimpleAdapter(this, reportList, android.R.layout.simple_list_item_1, new String[] {"name"}, new int[] {android.R.id.text1});
+    spinnerReport.setAdapter(reportAdapter);
     
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-      Point point = new Point();
-      disp.getSize(point);
-      width = point.x;
-      height = point.y;
-    } else {
-      width = disp.getWidth();
-      height = disp.getHeight();
-    }
-    BalanceDbHelper dbHelper = new BalanceDbHelper(this);
-    SQLiteDatabase db = dbHelper.getReadableDatabase();
-    Cursor c = db.rawQuery("SELECT " + BalanceContract.BalanceEntry.COLUMN_NAME_LOCATION + ", SUM(" + BalanceContract.BalanceEntry.COLUMN_NAME_AMOUNT + ") total_amount FROM " + BalanceContract.BalanceEntry.TABLE_NAME + " " +
-    		"WHERE " + BalanceContract.BalanceEntry.COLUMN_NAME_AMOUNT + " < 0 GROUP BY " + BalanceContract.BalanceEntry.COLUMN_NAME_LOCATION + " ORDER BY total_amount LIMIT 10", null);
-    
-    
-    LinearLayout layout = new LinearLayout(this);
-    ScrollView scrollView = new ScrollView(this);
-    scrollView.addView(layout);
-    layout.setBackgroundColor(0xff000000);
-    int i = 0;
-    if (c.moveToFirst()) {
-      ArrayList<ReportData> data = new ArrayList<ReportData>();
-      do {
-        String location = c.getString(c.getColumnIndex(BalanceContract.BalanceEntry.COLUMN_NAME_LOCATION));
-        Long amount = c.getLong(c.getColumnIndex("total_amount")) * -1; //Flip sign
-        ReportData d = new ReportData(location, amount.intValue());
-        d.color = d.colorSet[i++];
-        data.add(d);
-      } while (c.moveToNext());
-      ArrayList<Integer> values = new ArrayList<Integer>();
-      ArrayList<Integer> colors = new ArrayList<Integer>();
-      Integer total = 0;
-      for(i = 0; i < data.size(); i++) {
-        total += data.get(i).value;
-        values.add(data.get(i).value);
-        colors.add(data.get(i).color);
+    //setup range drop down
+    List<Map<String, String>> rangeList = new ArrayList<Map<String, String>>();
+    tmpMap = new HashMap<String, String>();
+    tmpMap.put("name", "This week");
+    rangeList.add(tmpMap);
+    tmpMap = new HashMap<String, String>();
+    tmpMap.put("name", "This month");
+    rangeList.add(tmpMap);
+    tmpMap = new HashMap<String, String>();
+    tmpMap.put("name", "This year");
+    rangeList.add(tmpMap);
+    tmpMap = new HashMap<String, String>();
+    tmpMap.put("name", "All time");
+    rangeList.add(tmpMap);
+    SimpleAdapter rangeAdapter = new SimpleAdapter(this, rangeList, android.R.layout.simple_list_item_1, new String[] {"name"}, new int[] {android.R.id.text1});
+    spinnerRange.setAdapter(rangeAdapter);
+    goBtn.setOnClickListener(new OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        String reportType = (String) ((Map<String, String>) spinnerReport.getSelectedItem()).get("name");
+        String reportRange = (String) ((Map<String, String>) spinnerRange.getSelectedItem()).get("name");
+        if (reportType.equals("Spending Report")) {
+          Intent spendingReportIntent = new Intent(v.getContext(), SpendingReportActivity.class);
+          spendingReportIntent.putExtra("range", reportRange);
+          startActivity(spendingReportIntent);
+        }
       }
       
-      NumberFormat fmt = NumberFormat.getCurrencyInstance();
-      LinearLayout totalLayout = new LinearLayout(this);
-      totalLayout.setOrientation(LinearLayout.VERTICAL);
-      TextView tvTotalLbl = new TextView(this);
-      TextView tvTotal = new TextView(this);
-      tvTotalLbl.setTextColor(0xffffffff);
-      tvTotalLbl.setTextSize(24);
-      tvTotalLbl.setPadding(5, 5, 5, 5);
-      tvTotalLbl.setText("Total");
-      tvTotal.setTextColor(0xffffffff);
-      tvTotal.setPadding(5, 5, 5, 5);
-      tvTotal.setText(fmt.format((double) total / 100));
-      totalLayout.addView(tvTotalLbl);
-      totalLayout.addView(tvTotal);
-      CustomGraphView graph = new CustomGraphView(this, width, height, 300);
-      graph.setPadding(0, 5, 0, 5);
-      graph.setValues(values);
-      graph.setColors(colors);
-      graph.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-      layout.setOrientation(LinearLayout.VERTICAL);
-      layout.addView(totalLayout);
-      layout.addView(graph);
-      for(i = 0; i < data.size(); i++) {
-        LinearLayout tmpLayoutParent = new LinearLayout(this);
-        LinearLayout tmpLayout = new LinearLayout(this);
-        tmpLayoutParent.setOrientation(LinearLayout.HORIZONTAL);
-        tmpLayout.setPadding(5, 5, 5, 5);
-
-        tmpLayout.setOrientation(LinearLayout.VERTICAL);
-        TextView tvLocation = new TextView(this);
-        TextView tvAmount = new TextView(this);
-        ImageView iv = new ImageView(this);
-        iv.setLayoutParams(new LayoutParams(40, LayoutParams.MATCH_PARENT));
-        iv.setPadding(10, 10, 10, 10);
-        ColorDrawable cd = new ColorDrawable(data.get(i).color);
-        iv.setImageDrawable(cd);
-        tmpLayoutParent.addView(iv);
-        tmpLayoutParent.addView(tmpLayout);
-        tvLocation.setTextSize(24);
-        tvLocation.setTextColor(0xffffffff);
-        tvLocation.setText(data.get(i).location);
-        tvAmount.setTextColor(0xffffffff);
-        tvAmount.setText(fmt.format((double) data.get(i).value / 100));
-        tmpLayout.addView(tvLocation);
-        tmpLayout.addView(tvAmount);
-        layout.addView(tmpLayoutParent);
-      }
-      
-    } else {
-      TextView tv = new TextView(this);
-      tv.setTextColor(0xffffffff);
-      tv.setText("No data yet");
-      layout.addView(tv);
-    }
-    db.close();
+    });
     
-
-    setContentView(scrollView);
+    
     // Show the Up button in the action bar.
     setupActionBar();
   }

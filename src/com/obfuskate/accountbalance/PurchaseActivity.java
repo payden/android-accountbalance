@@ -170,7 +170,7 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
       
       if (jsonObject == null) {
         Toast.makeText(PurchaseActivity.this, "Unable to get location results", Toast.LENGTH_SHORT).show();
-        Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerSelectReport);
         EditText otherText = (EditText) findViewById(R.id.editTextOther);
         otherText.setVisibility(View.VISIBLE);
         spinner.setVisibility(View.INVISIBLE);
@@ -197,7 +197,7 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
       
       if (jsonArray == null) {
         Toast.makeText(PurchaseActivity.this, "Unable to get location results", Toast.LENGTH_SHORT).show();
-        Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerSelectReport);
         EditText otherText = (EditText) findViewById(R.id.editTextOther);
         otherText.setVisibility(View.VISIBLE);
         spinner.setVisibility(View.INVISIBLE);
@@ -224,7 +224,7 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
       map.put("icon", GENERIC_BUSINESS_ICON);
       map.put("id", "other");
       arrayList.add(map);
-      Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+      Spinner spinner = (Spinner) findViewById(R.id.spinnerSelectReport);
       EstablishmentsAdapter adapter = new EstablishmentsAdapter(PurchaseActivity.this, R.layout.simple_list_item_2_icon, arrayList);
       mAdapter = adapter;
       spinner.setAdapter(adapter);
@@ -336,7 +336,7 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
         ContentValues values = new ContentValues();
         EditText otherText = (EditText) findViewById(R.id.editTextOther);
         EditText amountText = (EditText) findViewById(R.id.editTextAmount);
-        Spinner locationSpinner = (Spinner) findViewById(R.id.spinner1);
+        Spinner locationSpinner = (Spinner) findViewById(R.id.spinnerSelectReport);
         String location = "";
         
         if (amountText.getText().toString().equals("")) {
@@ -494,7 +494,7 @@ public class PurchaseActivity extends FragmentActivity implements GooglePlayServ
       map.put("name", "Searching nearby locations");
       arrayList.add(map);
       SimpleAdapter waitingAdapter = new SimpleAdapter(PurchaseActivity.this, arrayList, android.R.layout.simple_list_item_1, new String[] {"name"}, new int[] {android.R.id.text1});
-      Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+      Spinner spinner = (Spinner) findViewById(R.id.spinnerSelectReport);
       spinner.setAdapter(waitingAdapter);
       findEstablishmentsTask = new FindEstablishmentsTask();
       findEstablishmentsTask.execute(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));

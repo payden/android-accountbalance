@@ -185,10 +185,11 @@ containing a value of this type.
     public static final class id {
         public static final int LinearLayout1=0x7f05000e;
         public static final int RelativeLayout1=0x7f05000c;
-        public static final int action_reports=0x7f050031;
-        public static final int action_settings=0x7f050030;
+        public static final int action_reports=0x7f050033;
+        public static final int action_settings=0x7f050032;
         public static final int ad=0x7f05000b;
         public static final int buttonDeposit=0x7f05001b;
+        public static final int buttonGo=0x7f050028;
         public static final int buttonPurchase=0x7f05001c;
         public static final int buttonRecordDeposit=0x7f050008;
         public static final int buttonRecordPurchase=0x7f050023;
@@ -197,7 +198,7 @@ containing a value of this type.
         public static final int editTextDepositMemo=0x7f050009;
         public static final int editTextOther=0x7f050022;
         public static final int hybrid=0x7f050004;
-        public static final int imageView1=0x7f05002d;
+        public static final int imageView1=0x7f05002f;
         public static final int linearLayout=0x7f050016;
         public static final int linearLayout2=0x7f050017;
         public static final int linearLayout3=0x7f050005;
@@ -210,24 +211,25 @@ containing a value of this type.
         public static final int progressBarSearching=0x7f050020;
         public static final int relativeLayout=0x7f05001a;
         public static final int satellite=0x7f050002;
-        public static final int spinner1=0x7f050026;
+        public static final int spinnerSelectRange=0x7f050029;
+        public static final int spinnerSelectReport=0x7f050026;
         public static final int terrain=0x7f050003;
-        public static final int text1=0x7f05002e;
-        public static final int text2=0x7f05002f;
-        public static final int textView1=0x7f05002c;
+        public static final int text1=0x7f050030;
+        public static final int text2=0x7f050031;
+        public static final int textView1=0x7f050027;
         public static final int textViewAmountDetail=0x7f050014;
         public static final int textViewAmountDetailLbl=0x7f050013;
-        public static final int textViewAmountLabel=0x7f050029;
+        public static final int textViewAmountLabel=0x7f05002c;
         public static final int textViewAmountLbl=0x7f050025;
         public static final int textViewCurrent=0x7f050019;
-        public static final int textViewDate=0x7f05002a;
-        public static final int textViewDateLabel=0x7f050027;
+        public static final int textViewDate=0x7f05002d;
+        public static final int textViewDateLabel=0x7f05002a;
         public static final int textViewDepositAmountLbl=0x7f050006;
         public static final int textViewDepositMemoLbl=0x7f05000a;
         public static final int textViewLabelCurrent=0x7f050018;
         public static final int textViewLocationLbl=0x7f050021;
-        public static final int textViewPlace=0x7f05002b;
-        public static final int textViewPlaceLabel=0x7f050028;
+        public static final int textViewPlace=0x7f05002e;
+        public static final int textViewPlaceLabel=0x7f05002b;
         public static final int textViewWaitingLbl=0x7f05000d;
         public static final int textViewWhen=0x7f050010;
         public static final int textViewWhenLbl=0x7f05000f;
@@ -241,10 +243,12 @@ containing a value of this type.
         public static final int activity_main=0x7f030003;
         public static final int activity_purchase=0x7f030004;
         public static final int activity_report=0x7f030005;
-        public static final int recent_transaction_header=0x7f030006;
-        public static final int recent_transaction_row=0x7f030007;
-        public static final int recent_transactions_none=0x7f030008;
-        public static final int simple_list_item_2_icon=0x7f030009;
+        public static final int activity_spending_report=0x7f030006;
+        public static final int recent_transaction_header=0x7f030007;
+        public static final int recent_transaction_row=0x7f030008;
+        public static final int recent_transactions_none=0x7f030009;
+        public static final int simple_list_item_1_white=0x7f03000a;
+        public static final int simple_list_item_2_icon=0x7f03000b;
     }
     public static final class menu {
         public static final int deposit=0x7f090000;
@@ -253,6 +257,7 @@ containing a value of this type.
         public static final int purchase=0x7f090003;
         public static final int record_purchase=0x7f090004;
         public static final int report=0x7f090005;
+        public static final int spending_report=0x7f090006;
     }
     public static final class string {
         public static final int action_reports=0x7f060017;
@@ -328,6 +333,7 @@ containing a value of this type.
         public static final int common_signin_button_text_long=0x7f06000e;
         public static final int current_label=0x7f060018;
         public static final int date=0x7f060021;
+        public static final int go=0x7f060031;
         public static final int hello_world=0x7f06001e;
         public static final int location=0x7f060024;
         /**  Location client code resources (prefix with location_client) 
@@ -346,12 +352,14 @@ containing a value of this type.
         public static final int place=0x7f06001f;
         public static final int record_deposit=0x7f060023;
         public static final int record_purchase=0x7f060022;
+        public static final int reportFor=0x7f060030;
         public static final int searching=0x7f06001c;
         public static final int title_activity_deposit=0x7f060029;
         public static final int title_activity_detail=0x7f060025;
         public static final int title_activity_purchase=0x7f06001b;
         public static final int title_activity_record_purchase=0x7f06001d;
         public static final int title_activity_report=0x7f06002e;
+        public static final int title_activity_spending_report=0x7f06002f;
         public static final int viewmap=0x7f060028;
         public static final int waiting=0x7f06002b;
         public static final int when=0x7f060026;

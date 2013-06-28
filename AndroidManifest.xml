@@ -92,6 +92,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
         </activity>
+        <activity
+            android:name="com.obfuskate.accountbalance.SpendingReportActivity"
+            android:label="@string/title_activity_spending_report"
+            android:parentActivityName="ReportActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ReportActivity" />
+        </activity>
     </application>
 
 </manifest>
